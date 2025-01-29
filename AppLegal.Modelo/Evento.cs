@@ -23,5 +23,9 @@ public partial class Evento
 
     public bool? Activo { get; set; }
 
+    public int? CreadoPor { get; set; }
+
     public virtual Caso? Caso { get; set; }
+
+    public virtual Usuario? CreadoPorNavigation { get; set; }
 }

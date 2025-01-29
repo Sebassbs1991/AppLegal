@@ -1,3 +1,10 @@
+using AppLegal.Repositorio.Contrato;
+using AppLegal.Repositorio.DBContext;
+using AppLegal.Repositorio.Implementacion;
+using AppLegal.Utilidades;
+using Microsoft.EntityFrameworkCore;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,6 +14,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddDbContext<DbLegalProContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ConexionSQL"));
+});
+
+builder.Services.AddTransient(typeof(IGenericoRepositorio<>), typeof(GenericoRepositorio<>));
+
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

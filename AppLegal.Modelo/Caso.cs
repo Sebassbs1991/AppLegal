@@ -9,9 +9,9 @@ public partial class Caso
 
     public string NumeroCaso { get; set; } = null!;
 
-    public string? ClienteId { get; set; }
+    public int? ClienteId { get; set; }
 
-    public string? AbogadoId { get; set; }
+    public int? AbogadoId { get; set; }
 
     public string TipoCaso { get; set; } = null!;
 

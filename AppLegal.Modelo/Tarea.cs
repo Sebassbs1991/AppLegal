@@ -9,7 +9,7 @@ public partial class Tarea
 
     public int? CasoId { get; set; }
 
-    public string? ResponsableId { get; set; }
+    public int? ResponsableId { get; set; }
 
     public string Titulo { get; set; } = null!;
 

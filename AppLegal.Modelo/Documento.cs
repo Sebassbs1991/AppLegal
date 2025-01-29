@@ -15,7 +15,7 @@ public partial class Documento
 
     public string TipoDocumento { get; set; } = null!;
 
-    public string? SubidoPor { get; set; }
+    public int? SubidoPor { get; set; }
 
     public DateTime? FechaSubida { get; set; }
 
