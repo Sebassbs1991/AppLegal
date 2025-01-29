@@ -43,17 +43,81 @@ namespace AppLegal.Servicio.Implementacion
 
         public async Task<UsuarioDTO> Crear(UsuarioDTO modelo)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var dbModelo = _mapper.Map<Usuario>(modelo);
+                var rspModelo = await _modeloRepositorio.Crear(dbModelo);
+
+                if(rspModelo.UsuarioId!=0)
+                    return _mapper.Map<UsuarioDTO>(rspModelo);
+                else
+                    throw new TaskCanceledException("Error al crear el usuario");
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            };
         }
 
-        public Task<bool> Editar(UsuarioDTO modelo)
+        public async Task<bool> Editar(UsuarioDTO modelo)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var consulta = _modeloRepositorio.Consultar(x => x.UsuarioId == modelo.UsuarioId);
+                var fromDbModelo = await consulta.FirstOrDefaultAsync();
+
+                if (fromDbModelo != null)
+                {
+                    fromDbModelo.NombreUsuario = modelo.NombreUsuario;
+                    fromDbModelo.Correo = modelo.Correo;
+                    fromDbModelo.Clave = modelo.Clave;
+                    var respuesta = await _modeloRepositorio.Editar(fromDbModelo);
+
+                    if (!respuesta)
+                        throw new TaskCanceledException("Error al editar el usuario");
+                    return respuesta;
+                }
+
+                else
+                {
+                    throw new TaskCanceledException("Usuario no encontrado");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            };
         }
 
-        public Task<bool> Eliminar(int id)
+        public async Task<bool> Eliminar(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var consulta = _modeloRepositorio.Consultar(x => x.UsuarioId == id);
+                var fromDbModelo = await consulta.FirstOrDefaultAsync();
+
+                if (fromDbModelo != null)
+                {
+                    
+                    var respuesta = await _modeloRepositorio.Eliminar(fromDbModelo);
+
+                    if (!respuesta)
+                        throw new TaskCanceledException("No se pudo eliminar");
+                    return respuesta;
+                }
+
+                else
+                {
+                    throw new TaskCanceledException("No se encontraron resultados");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            };
         }
 
         public Task<List<UsuarioDTO>> Lista(string rol, string buscar)

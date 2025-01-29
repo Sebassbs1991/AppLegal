@@ -10,8 +10,8 @@ namespace AppLegal.DTO
 {
     public class UsuarioDTO
     {
-        
-        public string UsuarioId { get; set; } = null!;
+
+        public int UsuarioId { get; set; }
 
         [Required(ErrorMessage = "El campo nombre es requerido")]
         public string NombreUsuario { get; set; } = null!;
