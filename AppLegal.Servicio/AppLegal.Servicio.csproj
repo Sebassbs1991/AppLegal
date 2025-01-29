@@ -6,4 +6,11 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AppLegal.DTO\AppLegal.DTO.csproj" />
+    <ProjectReference Include="..\AppLegal.Modelo\AppLegal.Modelo.csproj" />
+    <ProjectReference Include="..\AppLegal.Repositorio\AppLegal.Repositorio.csproj" />
+    <ProjectReference Include="..\AppLegal.Utilidades\AppLegal.Utilidades.csproj" />
+  </ItemGroup>
+
 </Project>

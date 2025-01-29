@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35707.178 d17.12
+VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppLegal.Modelo", "AppLegal.Modelo\AppLegal.Modelo.csproj", "{9DEAD8DF-2038-4EE2-9955-53E8779020C1}"
 EndProject
@@ -13,9 +13,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppLegal.DTO", "AppLegal.DT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppLegal.Utilidades", "AppLegal.Utilidades\AppLegal.Utilidades.csproj", "{6633376B-475D-4054-A760-77F124B3440D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppLegal.API", "AppLegal.API\AppLegal.API.csproj", "{4B0389AD-DC7B-4DFA-BE7E-2C021FA04B8E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppLegal.WebAssembly", "AppLegal.WebAssembly\AppLegal.WebAssembly.csproj", "{D5240C2B-A4BD-42F4-B9E2-88E98E96E969}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APPLegal.API", "APPLegal.API\APPLegal.API.csproj", "{F3A0A0A4-F37D-481C-BCE0-9F44C8DD58C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,14 +43,14 @@ Global
 		{6633376B-475D-4054-A760-77F124B3440D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6633376B-475D-4054-A760-77F124B3440D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6633376B-475D-4054-A760-77F124B3440D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4B0389AD-DC7B-4DFA-BE7E-2C021FA04B8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4B0389AD-DC7B-4DFA-BE7E-2C021FA04B8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4B0389AD-DC7B-4DFA-BE7E-2C021FA04B8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4B0389AD-DC7B-4DFA-BE7E-2C021FA04B8E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D5240C2B-A4BD-42F4-B9E2-88E98E96E969}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D5240C2B-A4BD-42F4-B9E2-88E98E96E969}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5240C2B-A4BD-42F4-B9E2-88E98E96E969}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5240C2B-A4BD-42F4-B9E2-88E98E96E969}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3A0A0A4-F37D-481C-BCE0-9F44C8DD58C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3A0A0A4-F37D-481C-BCE0-9F44C8DD58C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3A0A0A4-F37D-481C-BCE0-9F44C8DD58C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3A0A0A4-F37D-481C-BCE0-9F44C8DD58C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
