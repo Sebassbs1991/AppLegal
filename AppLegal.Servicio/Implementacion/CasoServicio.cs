@@ -119,8 +119,8 @@ namespace AppLegal.Servicio.Implementacion
         {
             try
             {
-                var consulta = _modeloRepositorio.Consultar(x => 
-                string.Concat(x.NumeroCaso.ToLower()).Contains(buscar.ToLower())
+                var consulta = _modeloRepositorio.Consultar(x =>
+                x.NumeroCaso!.ToLower().Contains(buscar.ToLower())
                 );
 
                 List<CasoDTO> lista = _mapper.Map<List<CasoDTO>>(await consulta.ToListAsync());

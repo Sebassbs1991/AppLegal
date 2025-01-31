@@ -124,3 +124,5 @@ public partial class DbLegalProContext : DbContext
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }
+
+/* Generamos la base de datos con el comando: Scaffold-DbContext "Server=(local); DataBase=DBEcommerce; Trusted_Connection=True; TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer*/

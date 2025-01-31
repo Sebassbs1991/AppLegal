@@ -30,12 +30,16 @@ builder.Services.AddScoped<IDocumentoServicio, DocumentoServicio>();
 builder.Services.AddScoped<IUsuarioServicio, UsuarioServicio>();
 builder.Services.AddScoped<IEventoServicio, EventoServicio>();
 builder.Services.AddScoped<ITareaServicio, TareaServicio>();
-
-
-
-
-
-
+ builder.Services.AddCors(options =>
+ {
+     options.AddPolicy("Nueva Politica", app =>
+     { 
+            app.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+     });
+ });
 
 
 var app = builder.Build();
@@ -46,6 +50,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("NuevaPolitica");
 
 app.UseAuthorization();
 
