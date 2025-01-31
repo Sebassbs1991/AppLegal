@@ -7,100 +7,83 @@ using Microsoft.EntityFrameworkCore;
 using AppLegal.Modelo;
 using AppLegal.DTO;
 using AppLegal.Repositorio.Contrato;
-using AppLegal.Servicio.Contrato;   
+using AppLegal.Servicio.Contrato;
 using AutoMapper;
 
 namespace AppLegal.Servicio.Implementacion
 {
-    public class UsuarioServicio : IUsuarioServicio
+    public class TareaServicio : ITareaServicio
     {
-        private readonly IGenericoRepositorio<Usuario> _modeloRepositorio;
+
+        private readonly IGenericoRepositorio<Tarea> _modeloRepositorio;
         private readonly IMapper _mapper;
-        public UsuarioServicio(IGenericoRepositorio<Usuario> modeloRepositorio, IMapper mapper)
+        public TareaServicio(IGenericoRepositorio<Tarea> modeloRepositorio, IMapper mapper)
         {
             _modeloRepositorio = modeloRepositorio;
             _mapper = mapper;
         }
 
-        public async Task<SesionDTO> Autorizacion(LoginDTO modelo)
+        public async Task<TareaDTO> Crear(TareaDTO modelo)
         {
-            try
+            
+           try
             {
-                var consulta = _modeloRepositorio.Consultar(x => x.Correo == modelo.Correo && x.Clave == modelo.Clave);
-                var fromDbModelo = await consulta.FirstOrDefaultAsync();
-                if (fromDbModelo == null)
-                    return _mapper.Map<SesionDTO>(fromDbModelo);
-                else
-                    throw new TaskCanceledException("Usuario o clave incorrecta");
-
-
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            };
-        }
-
-        public async Task<UsuarioDTO> Crear(UsuarioDTO modelo)
-        {
-            try
-            {
-                var dbModelo = _mapper.Map<Usuario>(modelo);
+                var dbModelo = _mapper.Map<Tarea>(modelo);
                 var rspModelo = await _modeloRepositorio.Crear(dbModelo);
 
-                if(rspModelo.UsuarioId!=0)
-                    return _mapper.Map<UsuarioDTO>(rspModelo);
+                if (rspModelo.TareaId != 0)
+                    return _mapper.Map<TareaDTO>(rspModelo);
                 else
-                    throw new TaskCanceledException("Error al crear el usuario");
-
+                    throw new TaskCanceledException("Error al crear la Tarea");
             }
             catch (Exception ex)
             {
                 throw ex;
             };
         }
-
-        public async Task<bool> Editar(UsuarioDTO modelo)
+        public async Task<bool> Editar(TareaDTO modelo)
         {
             try
             {
-                var consulta = _modeloRepositorio.Consultar(x => x.UsuarioId == modelo.UsuarioId);
+
+                var consulta = _modeloRepositorio.Consultar(x => x.TareaId == modelo.TareaId);
                 var fromDbModelo = await consulta.FirstOrDefaultAsync();
 
                 if (fromDbModelo != null)
                 {
-                    fromDbModelo.NombreUsuario = modelo.NombreUsuario;
-                    fromDbModelo.Correo = modelo.Correo;
-                    fromDbModelo.Clave = modelo.Clave;
+                    fromDbModelo.Titulo = modelo.Titulo;
+                    fromDbModelo.Descripcion = modelo.Descripcion;
+                    fromDbModelo.FechaVencimiento = modelo.FechaVencimiento;
+                    fromDbModelo.Prioridad = modelo.Prioridad;
+                    fromDbModelo.Estado = modelo.Estado;
                     var respuesta = await _modeloRepositorio.Editar(fromDbModelo);
 
                     if (!respuesta)
-                        throw new TaskCanceledException("Error al editar el usuario");
+                        throw new TaskCanceledException("Error al editar la Tarea");
                     return respuesta;
-                }
 
+                }
                 else
                 {
-                    throw new TaskCanceledException("Usuario no encontrado");
+                    throw new TaskCanceledException("Tarea no encontrado");
                 }
-
             }
+
             catch (Exception ex)
             {
                 throw ex;
             };
         }
-
         public async Task<bool> Eliminar(int id)
         {
             try
             {
-                var consulta = _modeloRepositorio.Consultar(x => x.UsuarioId == id);
+                var consulta = _modeloRepositorio.Consultar(x => x.TareaId == id);
                 var fromDbModelo = await consulta.FirstOrDefaultAsync();
 
                 if (fromDbModelo != null)
                 {
-                    
+
                     var respuesta = await _modeloRepositorio.Eliminar(fromDbModelo);
 
                     if (!respuesta)
@@ -119,42 +102,39 @@ namespace AppLegal.Servicio.Implementacion
                 throw ex;
             };
         }
-
-        public async Task<List<UsuarioDTO>> Lista(string rol, string buscar)
+    
+       public async Task<List<TareaDTO>> Lista(string buscar)
         {
             try
             {
-                var consulta = _modeloRepositorio.Consultar(x => x.Rol == rol &&
-                string.Concat(x.NombreUsuario.ToLower(), x.Correo.ToLower()).Contains(buscar.ToLower())
+                var consulta = _modeloRepositorio.Consultar(x =>
+                string.Concat(x.Titulo.ToLower(), x.Descripcion.ToLower(),x.Prioridad.ToLower(), x.Estado.ToLower()).Contains(buscar.ToLower())
                 );
 
-                List<UsuarioDTO> lista = _mapper.Map<List<UsuarioDTO>>(await consulta.ToListAsync());
+                List<TareaDTO> lista = _mapper.Map<List<TareaDTO>>(await consulta.ToListAsync());
                 return lista;
             }
 
-                          
+
             catch (Exception ex)
             {
                 throw ex;
             };
         }
-        
 
-        public async Task<UsuarioDTO> Obtener(int id)
+        public async Task<TareaDTO> Obtener(int id)
         {
             try
             {
-                var consulta = _modeloRepositorio.Consultar(x => x.UsuarioId == id);
+                var consulta = _modeloRepositorio.Consultar(x => x.TareaId == id);
                 var fromDbModelo = await consulta.FirstOrDefaultAsync();
 
                 if (fromDbModelo != null)
-                    return _mapper.Map<UsuarioDTO>(fromDbModelo);
+                    return _mapper.Map<TareaDTO>(fromDbModelo);
                 else
                     throw new TaskCanceledException("No se encontraron coincidencias");
 
             }
-
-
             catch (Exception ex)
             {
                 throw ex;

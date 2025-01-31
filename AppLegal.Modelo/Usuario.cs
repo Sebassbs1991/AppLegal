@@ -13,6 +13,8 @@ public partial class Usuario
 
     public string Clave { get; set; } = null!;
 
+    public string Rol { get; set; } = null!;
+
     public DateTime? FechaCreacion { get; set; }
 
     public bool? Activo { get; set; }
@@ -26,6 +28,4 @@ public partial class Usuario
     public virtual ICollection<Evento> Eventos { get; set; } = new List<Evento>();
 
     public virtual ICollection<Tarea> Tareas { get; set; } = new List<Tarea>();
-
-    public virtual ICollection<UsuarioRol> UsuarioRols { get; set; } = new List<UsuarioRol>();
 }

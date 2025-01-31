@@ -4,6 +4,8 @@ using AppLegal.Repositorio.Implementacion;
 using AppLegal.Utilidades;
 using Microsoft.EntityFrameworkCore;
 
+using AppLegal.Servicio.Contrato;
+using AppLegal.Servicio.Implementacion;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +24,20 @@ builder.Services.AddDbContext<DbLegalProContext>(options =>
 builder.Services.AddTransient(typeof(IGenericoRepositorio<>), typeof(GenericoRepositorio<>));
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+
+builder.Services.AddScoped<ICasoServicio, CasoServicio>();
+builder.Services.AddScoped<IDocumentoServicio, DocumentoServicio>();
+builder.Services.AddScoped<IUsuarioServicio, UsuarioServicio>();
+builder.Services.AddScoped<IEventoServicio, EventoServicio>();
+builder.Services.AddScoped<ITareaServicio, TareaServicio>();
+
+
+
+
+
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

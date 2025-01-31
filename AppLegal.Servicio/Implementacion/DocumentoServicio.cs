@@ -7,52 +7,32 @@ using Microsoft.EntityFrameworkCore;
 using AppLegal.Modelo;
 using AppLegal.DTO;
 using AppLegal.Repositorio.Contrato;
-using AppLegal.Servicio.Contrato;   
+using AppLegal.Servicio.Contrato;
 using AutoMapper;
 
 namespace AppLegal.Servicio.Implementacion
 {
-    public class UsuarioServicio : IUsuarioServicio
+    public class DocumentoServicio : IDocumentoServicio
     {
-        private readonly IGenericoRepositorio<Usuario> _modeloRepositorio;
+
+        private readonly IGenericoRepositorio<Documento> _modeloRepositorio;
         private readonly IMapper _mapper;
-        public UsuarioServicio(IGenericoRepositorio<Usuario> modeloRepositorio, IMapper mapper)
+        public DocumentoServicio(IGenericoRepositorio<Documento> modeloRepositorio, IMapper mapper)
         {
             _modeloRepositorio = modeloRepositorio;
             _mapper = mapper;
         }
-
-        public async Task<SesionDTO> Autorizacion(LoginDTO modelo)
+        public async Task<DocumentoDTO> Crear(DocumentoDTO modelo)
         {
             try
             {
-                var consulta = _modeloRepositorio.Consultar(x => x.Correo == modelo.Correo && x.Clave == modelo.Clave);
-                var fromDbModelo = await consulta.FirstOrDefaultAsync();
-                if (fromDbModelo == null)
-                    return _mapper.Map<SesionDTO>(fromDbModelo);
-                else
-                    throw new TaskCanceledException("Usuario o clave incorrecta");
-
-
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            };
-        }
-
-        public async Task<UsuarioDTO> Crear(UsuarioDTO modelo)
-        {
-            try
-            {
-                var dbModelo = _mapper.Map<Usuario>(modelo);
+                var dbModelo = _mapper.Map<Documento>(modelo);
                 var rspModelo = await _modeloRepositorio.Crear(dbModelo);
 
-                if(rspModelo.UsuarioId!=0)
-                    return _mapper.Map<UsuarioDTO>(rspModelo);
+                if (rspModelo.DocumentoId != 0)
+                    return _mapper.Map<DocumentoDTO>(rspModelo);
                 else
-                    throw new TaskCanceledException("Error al crear el usuario");
-
+                    throw new TaskCanceledException("Error al crear el documento");
             }
             catch (Exception ex)
             {
@@ -60,31 +40,33 @@ namespace AppLegal.Servicio.Implementacion
             };
         }
 
-        public async Task<bool> Editar(UsuarioDTO modelo)
+        public async Task<bool> Editar(DocumentoDTO modelo)
         {
             try
             {
-                var consulta = _modeloRepositorio.Consultar(x => x.UsuarioId == modelo.UsuarioId);
+
+                var consulta = _modeloRepositorio.Consultar(x => x. DocumentoId== modelo.DocumentoId);
                 var fromDbModelo = await consulta.FirstOrDefaultAsync();
 
                 if (fromDbModelo != null)
                 {
-                    fromDbModelo.NombreUsuario = modelo.NombreUsuario;
-                    fromDbModelo.Correo = modelo.Correo;
-                    fromDbModelo.Clave = modelo.Clave;
+                    fromDbModelo.Nombre = modelo.Nombre;
+                    fromDbModelo.TipoDocumento = modelo.TipoDocumento;
+                    fromDbModelo.Ruta = modelo.Ruta;
+
                     var respuesta = await _modeloRepositorio.Editar(fromDbModelo);
 
                     if (!respuesta)
-                        throw new TaskCanceledException("Error al editar el usuario");
+                        throw new TaskCanceledException("Error al editar el Documento");
                     return respuesta;
-                }
 
+                }
                 else
                 {
-                    throw new TaskCanceledException("Usuario no encontrado");
+                    throw new TaskCanceledException("Documento no encontrado");
                 }
-
             }
+
             catch (Exception ex)
             {
                 throw ex;
@@ -95,12 +77,12 @@ namespace AppLegal.Servicio.Implementacion
         {
             try
             {
-                var consulta = _modeloRepositorio.Consultar(x => x.UsuarioId == id);
+                var consulta = _modeloRepositorio.Consultar(x => x.DocumentoId == id);
                 var fromDbModelo = await consulta.FirstOrDefaultAsync();
 
                 if (fromDbModelo != null)
                 {
-                    
+
                     var respuesta = await _modeloRepositorio.Eliminar(fromDbModelo);
 
                     if (!respuesta)
@@ -120,41 +102,38 @@ namespace AppLegal.Servicio.Implementacion
             };
         }
 
-        public async Task<List<UsuarioDTO>> Lista(string rol, string buscar)
+        public async Task<List<DocumentoDTO>> Lista(string buscar)
         {
             try
             {
-                var consulta = _modeloRepositorio.Consultar(x => x.Rol == rol &&
-                string.Concat(x.NombreUsuario.ToLower(), x.Correo.ToLower()).Contains(buscar.ToLower())
+                var consulta = _modeloRepositorio.Consultar(x =>
+                string.Concat(x.Nombre.ToLower(),x.TipoDocumento.ToLower()).Contains(buscar.ToLower())
                 );
 
-                List<UsuarioDTO> lista = _mapper.Map<List<UsuarioDTO>>(await consulta.ToListAsync());
+                List<DocumentoDTO> lista = _mapper.Map<List<DocumentoDTO>>(await consulta.ToListAsync());
                 return lista;
             }
 
-                          
+
             catch (Exception ex)
             {
                 throw ex;
             };
         }
-        
 
-        public async Task<UsuarioDTO> Obtener(int id)
+        public async Task<DocumentoDTO> Obtener(int id)
         {
             try
             {
-                var consulta = _modeloRepositorio.Consultar(x => x.UsuarioId == id);
+                var consulta = _modeloRepositorio.Consultar(x => x.DocumentoId == id);
                 var fromDbModelo = await consulta.FirstOrDefaultAsync();
 
                 if (fromDbModelo != null)
-                    return _mapper.Map<UsuarioDTO>(fromDbModelo);
+                    return _mapper.Map<DocumentoDTO>(fromDbModelo);
                 else
                     throw new TaskCanceledException("No se encontraron coincidencias");
 
             }
-
-
             catch (Exception ex)
             {
                 throw ex;

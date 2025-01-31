@@ -10,7 +10,7 @@ namespace AppLegal.Servicio.Contrato
     public interface IUsuarioServicio
     {
         Task<List<UsuarioDTO>> Lista(string rol, string buscar);
-        Task<UsuarioDTO> Obtener(string id);
+        Task<UsuarioDTO> Obtener(int id);
         Task<SesionDTO> Autorizacion(LoginDTO modelo);
         Task<UsuarioDTO> Crear(UsuarioDTO modelo);
         Task<bool> Editar(UsuarioDTO modelo);
